@@ -1,65 +1,194 @@
+#!/usr/bin/env python
+# coding: utf-8
 
-# Initialize a row counter variable
-row_count = 0
-
-# @TODO: Loop over every row in the sales list object
-
+# In[1]:
 
 
-
-    # Line_Item_ID,Date,Credit_Card_Number,Quantity,Menu_Item
-    # @TODO: Initialize sales data variables
-
-
-    # @TODO:
-    # If the item value not in the report, add it as a new entry with initialized metrics
-    # Naming convention allows the keys to be ordered in logical fashion, count, revenue, cost, profit
+#import pathing libraries
+from pathlib import Path
+import csv
 
 
+# In[2]:
+
+
+#set file path for data
+menu_filepath = Path("Resources/menu_data.csv")
+sales_filepath = Path("Resources/sales_data.csv")
+
+
+# In[3]:
+
+
+#set list to store csv
+menu = []
+sales = []
+
+
+# In[5]:
+
+
+#read menu file and add menu to empty menu list
+with open(menu_filepath, 'r') as csvfile:
+    menureader = csv.reader(csvfile, delimiter=',')
+    header = next(menureader)
+    for item in menureader:
+        menu.append(item)
+
+
+# In[6]:
+
+
+#read sales file and add to empty sales list
+with open(sales_filepath, 'r') as csvfile:
+    salesreader = csv.reader(csvfile, delimiter=',')
+    header = next(salesreader)
+    for reciept in salesreader:
+        sales.append(reciept)
+
+
+# In[7]:
+
+
+#create empty report dictionary
+report = {}
+
+
+# In[8]:
+
+
+#check sales data
+print(sales[0:7])
+
+
+# In[9]:
+
+
+#set empty menu items to store list of unique menu items
+Menu_Item = []
+
+
+# In[10]:
+
+
+#for loop for menu items in sales and add to empty menu list with unique items
+for items in sales:
+    if items[::][4] not in Menu_Item: 
+            Menu_Item.append(items[::][4])
+
+
+# In[11]:
+
+
+#check unique items
+print(Menu_Item[0:20])
+
+
+# In[13]:
+
+
+#set dictionary for sales of dish
+dish_sales = {}
+
+
+# In[21]:
+
+
+#Attempt one, checked unique dish in unique menu and tried to create a dictionary with zero
+for dish in Menu_Item:
+    if dish == sales[::][4]:
+        dish_sales = dish_sales.update({dish:0})
+
+
+# In[22]:
+
+
+print(dish_sales)
+
+
+# In[29]:
+
+
+#Attempt two, tried to run each individual dish to get it to add the quantity to the dictionary but did not work
+for dish in Menu_Item:
+    if dish[0] == sales[::][4]:
+         dish_sales = dish_sales.update({dish[0]:+ sales[::][3]})
+
+
+# In[30]:
+
+
+#got nothing in return 
+print(dish_sales)
+
+
+# In[20]:
+
+
+#this the part where I got stuck and cannot figure out the script to write the rest since the above returns 'none'
+#the next steps and goals would have been
+#figure out how to nest a dictionary into a list into a dictionary into a list
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+print(Menu_Item)
+
+
+# In[ ]:
+
+
+# @TODO:
+# If the item value not in the report, add it as a new entry with initialized metrics
+# Naming convention allows the keys to be ordered in logical fashion, count, revenue, cost, profit
 
 
 
 
 
 
-    # @TODO: For every row in our sales data, loop over the menu records to determine a match
 
 
-        # Item,Category,Description,Price,Cost
-        # @TODO: Initialize menu data variables
+# @TODO: For every row in our sales data, loop over the menu records to determine a match
 
 
-
-
-        # @TODO: Calculate profit of each item in the menu data
-
-
-        # @TODO: If the item value in our sales data is equal to the any of the items in the menu, then begin tracking metrics for that item
-
-
-            # @TODO: Print out matching menu data
+    # Item,Category,Description,Price,Cost
+    # @TODO: Initialize menu data variables
 
 
 
 
+    # @TODO: Calculate profit of each item in the menu data
 
 
-            # @TODO: Cumulatively add up the metrics for each item key
+    # @TODO: If the item value in our sales data is equal to the any of the items in the menu, then begin tracking metrics for that item
+
+
+        # @TODO: Print out matching menu data
 
 
 
 
 
-        # @TODO: Else, the sales item does not equal any fo the item in the menu data, therefore no match
 
-
-
-    # @TODO: Increment the row counter by 1
-
-
-# @TODO: Print total number of records in sales data
+        # @TODO: Cumulatively add up the metrics for each item key
 
 
 
 
-# @TODO: Write out report to a text file (won't appear on the command line output)
+
+    # @TODO: Else, the sales item does not equal any fo the item in the menu data, therefore no match
+
+
+
+# @TODO: Increment the row counter by 1
+
